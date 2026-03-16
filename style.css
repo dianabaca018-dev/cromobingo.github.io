@@ -1,0 +1,139 @@
+:root {
+    --tile-size: 110px;
+    --win-color: #ffd700;
+    --bg-color: #1a1a1a;
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: var(--bg-color);
+    color: white;
+}
+
+.game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.main-title {
+    font-size: 2.5rem;
+    margin: 0;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, var(--tile-size));
+    grid-template-rows: repeat(4, var(--tile-size));
+    gap: 15px;
+    padding: 10px;
+}
+
+.tile {
+    width: var(--tile-size);
+    height: var(--tile-size);
+    /* Essential fixes for the image fitting */
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    /* Ensures image corners follow the border radius */
+    overflow: hidden; 
+    border-radius: 15px;
+    
+    cursor: pointer;
+    position: relative;
+    border: 3px solid #333;
+    transition: transform 0.1s ease, border-color 0.2s ease;
+}
+
+.tile:hover {
+    border-color: #666;
+}
+
+/* Tactile "Pop" effect when clicking */
+.tile:active {
+    transform: scale(0.92);
+}
+
+.tile.marked::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 55px;
+    height: 55px;
+    background-color: rgba(255, 255, 255, 0.85);
+    border-radius: 50%;
+    box-shadow: 0 0 15px rgba(255,255,255,0.6);
+    z-index: 2;
+}
+
+/* Button Styling */
+.btn {
+    padding: 12px 30px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 1px;
+}
+
+.btn-primary {
+    background-color: var(--win-color);
+    color: #000;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+}
+
+.btn-secondary {
+    background: transparent;
+    border: 2px solid #555;
+    color: #bbb;
+    margin-top: 10px;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+}
+
+/* Overlay Styling */
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 100;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    animation: fadeIn 0.4s ease;
+}
+
+.overlay.visible { display: flex; }
+
+.win-message { text-align: center; }
+
+.win-message h1 {
+    font-size: 5rem;
+    color: var(--win-color);
+    margin-bottom: 30px;
+    text-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
